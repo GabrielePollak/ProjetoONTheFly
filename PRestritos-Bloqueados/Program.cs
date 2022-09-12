@@ -8,6 +8,10 @@ namespace PRestritos_Bloqueados
         {
             ListaRestritos Minhalista = new ListaRestritos();
             Minhalista.Push(new ArquivodeRestritos("123.321.121-12"));
+            ArquivodeBloqueados arquivodeBloqueados = new ArquivodeBloqueados(null);
+            ArquivodeRestritos arquivodeRestritos = new ArquivodeRestritos(null);
+            string CPF;
+            string CNPJ;
 
             //Lista dos CNPJs
 
@@ -33,7 +37,7 @@ namespace PRestritos_Bloqueados
                     do
                     {
                         Console.WriteLine("                                     <<<<<Bem-vindo(a) ao menu de CPFs restritos:>>>>>                        ");
-                        Console.WriteLine("\nQual destas ações deseja fazer? : \n1-Imprimir lista de restritos.\n2-Localizar um CPF.\n3-Remover CPF.\n4-Cadstrar um CPF.\n0-SAIR!\nOpção: ");
+                        Console.WriteLine("\nQual destas ações deseja fazer? : \n1-Imprimir lista de restritos.\n2-Localizar um CPF.\n3-Remover CPF.\n4-Cadastrar um CPF.\n0-SAIR!\nOpção: ");
                         opc = int.Parse(Console.ReadLine());
 
                         if (opc == 1)
@@ -46,7 +50,7 @@ namespace PRestritos_Bloqueados
                             Console.Clear();
 
                             Console.Write("\nInforme o CPF que deseja localizar: ");
-                            string CPF = Console.ReadLine();
+                            CPF = Console.ReadLine();
                             Minhalista.Find(CPF);
 
                         }
@@ -62,8 +66,10 @@ namespace PRestritos_Bloqueados
                         }
                         else if (opc == 4)
                         {
-                            Console.WriteLine("Informe o CPF para o cadastro: ");
-                            string CPF = Console.ReadLine();
+                                Console.WriteLine("Informe o CPF para o cadastro: ");
+                                CPF = Console.ReadLine();
+
+                            
 
                             Minhalista.Push(new ArquivodeRestritos(CPF));
                             opc = -1;
@@ -87,7 +93,7 @@ namespace PRestritos_Bloqueados
                     do
                     {
                         Console.WriteLine("                                     <<<<<Bem-vindo(a) ao menu de CNPJs restritos:>>>>>                        ");
-                        Console.WriteLine("\nQual destas ações deseja fazer? : \n1-Imprimir lista de restritos.\n2-Localizar um CNPJ.\n3-Remover CNPJ.\n4-Cadstrar um CNPJ.\nOpção: ");
+                        Console.WriteLine("\nQual destas ações deseja fazer? : \n1-Imprimir lista de restritos.\n2-Localizar um CNPJ.\n3-Remover CNPJ.\n4-Cadastrar um CNPJ.\nOpção: ");
                         opc = int.Parse(Console.ReadLine());
                     } while (opc < 1 || opc > 4);
 
@@ -101,7 +107,7 @@ namespace PRestritos_Bloqueados
                         Console.Clear();
 
                         Console.Write("\nInforme o CNPJ que deseja localizar: ");
-                        string CNPJ = Console.ReadLine();
+                        CNPJ = Console.ReadLine();
                         Minhalista1.Find(CNPJ);
 
                     }
@@ -117,13 +123,18 @@ namespace PRestritos_Bloqueados
                     }
                     if (opc == 4)
                     {
-                        Console.WriteLine("Informe o CNPJ para o cadastro: ");
-                        string CNPJ = Console.ReadLine();
-
-                        if(Minhalista1.Vali)
+                        do
                         {
+                            Console.WriteLine("Informe o CNPJ para o cadastro: ");
+                            CNPJ = Console.ReadLine();
 
-                        }
+                            if (!arquivodeBloqueados.ValidarCnpj(CNPJ))
+                            {
+                                Console.WriteLine("CPNJ digitado é invalido!");
+                            }
+
+                        } while (!arquivodeBloqueados.ValidarCnpj(CNPJ));
+                        
                         
 
 

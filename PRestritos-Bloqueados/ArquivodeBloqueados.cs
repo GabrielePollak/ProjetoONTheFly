@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PRestritos_Bloqueados
 {
-    public class ArquivodeBloqueados
+    internal class ArquivodeBloqueados
     {
         public string CNPJ { get; set; }
 
