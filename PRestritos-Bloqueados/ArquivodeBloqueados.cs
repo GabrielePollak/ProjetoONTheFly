@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,9 +25,66 @@ namespace PRestritos_Bloqueados
 
         public override string ToString()
         {
-            return "\nDados Restritos:\nCPF:" + CNPJ;
+            return "\nDados Restritos:\nCNPJ:" + CNPJ;
         }
+        public string getData()
+        {
+            return CNPJ.PadRight(14).Replace(".", string.Empty).Replace("-", string.Empty).Replace("/", string.Empty);
+        }
+        public void GravarArquivoBloqueados(List<ArquivodeBloqueados> arquivodeBloqueados)
+        {
+            Console.WriteLine("Iniciando a Gravação de Dados...");
+            try
+            {
+                StreamWriter sw = new StreamWriter(@"c:\Users\Gabriele\source\repos\PRestritos-Bloqueados\Bloqueados.dat");  //Instancia um Objeto StreamWriter (Classe de Manipulação de Arquivos)
+                                                                                                                             //sw.WriteLine("Treinamento de C#");  //Escreve uma linha no Arquivo
+                                                                                                                             //sw.WriteLine("maria;araraquara;190;contato;"); //Exemplo de escrita - formato da escrita será de acordo com a necessidade do projeto
+                foreach (ArquivodeBloqueados i in arquivodeBloqueados)
+                {
+                    sw.WriteLine(i.getData());
+                }
+                sw.Close();  // Comando para Fechar o Arquivo
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception: " + e.Message);
+            }
+            finally
+            {
+                Console.WriteLine("Executando o Bloco de Comandos.");
+            }
+            Console.WriteLine("FIM DA GRAVAÇÃO");
+            Console.ReadKey();
 
+        }
+        public void CarregarArquivoBloqueados(List<ArquivodeBloqueados> arquivodeBloqueados)
+        {
+            try
+            {
+                using (StreamReader sr = new StreamReader(@"c:\Users\Gabriele\source\repos\PRestritos-Bloqueados\Bloqueados.dat"))
+                {
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        //tempo = new DateTime(int.Parse(line.Substring(14, 4)), int.Parse(line.Substring(12, 2)), int.Parse(line.Substring(10, 2)), int.Parse(line.Substring(20, 2)), int.Parse(line.Substring(18, 2)), int.Parse(line.Substring(18, 2)));
+                        arquivodeBloqueados.Add(new ArquivodeBloqueados
+                            (
+                            line.Substring(0, 14)
+                            ));
+                    }
+
+                    Console.WriteLine("\nArquivo carregado com sucesso!");
+                }
+
+            }
+
+            catch (Exception e)
+            {
+                Console.WriteLine("\nException: " + e.Message);
+                Console.WriteLine(e.StackTrace);
+            }
+        }
+        
         public bool ValidarCnpj(string cnpj)
         {
             int[] multiplicador1 = new int[12] { 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
@@ -128,7 +186,9 @@ namespace PRestritos_Bloqueados
 
             return cnpj.EndsWith(digito);
 
-          
+            
+            
+           
 
 
 

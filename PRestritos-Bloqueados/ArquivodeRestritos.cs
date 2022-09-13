@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +28,61 @@ namespace PRestritos_Bloqueados
         {
             return "\nDados Restritos:\nCPF:" + CPF;
         }
+        public void GravarArquivoRestritos(List<ArquivodeRestritos> arquivodeRestritos)
+        {
+            Console.WriteLine("Iniciando a Gravação de Dados...");
+            try
+            {
+                StreamWriter sw = new StreamWriter(@"c:\Users\Gabriele\source\repos\PRestritos-Bloqueados\Restritos.dat");  //Instancia um Objeto StreamWriter (Classe de Manipulação de Arquivos)
+                                                                                                                             //sw.WriteLine("Treinamento de C#");  //Escreve uma linha no Arquivo
+                                                                                                                             //sw.WriteLine("maria;araraquara;190;contato;"); //Exemplo de escrita - formato da escrita será de acordo com a necessidade do projeto
+                foreach (ArquivodeRestritos i in arquivodeRestritos)
+                {
+                    sw.WriteLine(i.CPF);
+                }
+                sw.Close();  // Comando para Fechar o Arquivo
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception: " + e.Message);
+            }
+            finally
+            {
+                Console.WriteLine("Executando o Bloco de Comandos.");
+            }
+            Console.WriteLine("FIM DA GRAVAÇÃO");
+            Console.ReadKey();
 
+        }
+       
+        
+        public void CarregarArquivoRestritos(List<ArquivodeRestritos> arquivodeRestritos)
+        {
+            try
+            {
+                using (StreamReader sr = new StreamReader(@"c:\Users\Gabriele\source\repos\PRestritos-Bloqueados\Bloqueados.dat"))
+                {
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        //tempo = new DateTime(int.Parse(line.Substring(14, 4)), int.Parse(line.Substring(12, 2)), int.Parse(line.Substring(10, 2)), int.Parse(line.Substring(20, 2)), int.Parse(line.Substring(18, 2)), int.Parse(line.Substring(18, 2)));
+                        arquivodeRestritos.Add(new ArquivodeRestritos
+                            (
+                            line.Substring(0, 11)
+                            ));
+                    }
+
+                    Console.WriteLine("\nArquivo carregado com sucesso!");
+                }
+
+            }
+
+            catch (Exception e)
+            {
+                Console.WriteLine("\nException: " + e.Message);
+                Console.WriteLine(e.StackTrace);
+            }
+        }
         public static string ReadCPF(string text)
         {
             string cpfString;

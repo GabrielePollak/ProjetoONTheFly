@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace PRestritos_Bloqueados
 {
@@ -10,6 +11,8 @@ namespace PRestritos_Bloqueados
             Minhalista.Push(new ArquivodeRestritos("123.321.121-12"));
             ArquivodeBloqueados arquivodeBloqueados = new ArquivodeBloqueados(null);
             ArquivodeRestritos arquivodeRestritos = new ArquivodeRestritos(null);
+            List<ListadeBloqueados> listaBloqueados = new List<ListadeBloqueados>();
+            List<ListaRestritos> listaRestritos = new List<ListaRestritos>();
             string CPF;
             string CNPJ;
 
@@ -119,13 +122,13 @@ namespace PRestritos_Bloqueados
 
                         Console.Clear();
 
-                        Minhalista1.Print();
+                        
                     }
                     if (opc == 4)
                     {
                         do
                         {
-                            Console.WriteLine("Informe o CNPJ para o cadastro: ");
+                            Console.WriteLine("Informe o CNPJ para o cadastro (XX. XXX. XXX/0001-XX): ");
                             CNPJ = Console.ReadLine();
 
                             if (!arquivodeBloqueados.ValidarCnpj(CNPJ))
