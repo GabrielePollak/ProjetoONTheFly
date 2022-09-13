@@ -13,15 +13,15 @@ namespace PRestritos_Bloqueados
             string CPF;
             string CNPJ;
 
-            //Lista dos CNPJs
+ 
 
             ListadeBloqueados Minhalista1 = new ListadeBloqueados();
             Minhalista1.Push(new ArquivodeBloqueados("67.298.128/0001-54"));
 
             //Melhorias:
-            //Questão dos 11 digitos;
+            
             //Questão do arquivo texto;
-            //Dois registros com mesmo atributo;
+            
             int opc = 0;
 
             do
@@ -66,10 +66,8 @@ namespace PRestritos_Bloqueados
                         }
                         else if (opc == 4)
                         {
-                                Console.WriteLine("Informe o CPF para o cadastro: ");
-                                CPF = Console.ReadLine();
-
-                            
+                                
+                            CPF = ArquivodeRestritos.ReadCPF("Informe o cpf sem traço ou ponto: : ");
 
                             Minhalista.Push(new ArquivodeRestritos(CPF));
                             opc = -1;
