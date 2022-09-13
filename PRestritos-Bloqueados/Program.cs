@@ -45,7 +45,7 @@ namespace PRestritos_Bloqueados
                             Minhalista.Print();
 
                         }
-                        else if (opc == 2)
+                        if (opc == 2)
                         {
                             Console.Clear();
 
@@ -54,7 +54,7 @@ namespace PRestritos_Bloqueados
                             Minhalista.Find(CPF);
 
                         }
-                        else if (opc == 3)
+                        if (opc == 3)
                         {
                             Console.Write("\nInforme o CPF que deseja remover: ");
                             string cpfremovido = Console.ReadLine();
@@ -64,7 +64,7 @@ namespace PRestritos_Bloqueados
 
                             Minhalista.Print();
                         }
-                        else if (opc == 4)
+                        if (opc == 4)
                         {
                                 
                             CPF = ArquivodeRestritos.ReadCPF("Informe o cpf sem traço ou ponto: : ");
@@ -77,7 +77,9 @@ namespace PRestritos_Bloqueados
                         }
                         else if (opc == 0)
                         {
-                            break;//arrumar isso
+                            Console.Clear();
+                            Console.WriteLine("Finalizando...");
+                            return;
                         }
                         else
                             Console.WriteLine("Opção inexistente!");
@@ -86,12 +88,12 @@ namespace PRestritos_Bloqueados
 
 
                 }
-                else if (opc == 2)
+                if (opc == 2)
                 {
                     do
                     {
                         Console.WriteLine("                                     <<<<<Bem-vindo(a) ao menu de CNPJs restritos:>>>>>                        ");
-                        Console.WriteLine("\nQual destas ações deseja fazer? : \n1-Imprimir lista de restritos.\n2-Localizar um CNPJ.\n3-Remover CNPJ.\n4-Cadastrar um CNPJ.\nOpção: ");
+                        Console.WriteLine("\nQual destas ações deseja fazer? : \n1-Imprimir lista de restritos.\n2-Localizar um CNPJ.\n3-Remover CNPJ.\n4-Cadastrar um CNPJ.\n0-SAIR!\nOpção: ");
                         opc = int.Parse(Console.ReadLine());
                     } while (opc < 1 || opc > 4);
 
@@ -144,10 +146,18 @@ namespace PRestritos_Bloqueados
                     }
                     else if (opc == 0)
                     {
-                        break; //arrumar isso
+                        Console.Clear();
+                        Console.WriteLine("Finalizando...");
+                        return;
                     }
                     else
                         Console.WriteLine("Opção inexistente!");
+                }
+                else if (opc == 0)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Finalizando...");
+                    return;
                 }
                 else
                     Console.WriteLine("Opção inexistente!");
